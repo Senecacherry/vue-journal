@@ -1,5 +1,5 @@
 <template>
-<div class="mb-3">
+<div class="mb-3, addEntry">
     <form @submit="onSubmit" class="add-form">
     <div class="form-control">
       <label class="form-label">Title</label>
@@ -55,6 +55,9 @@ export default {
 </script>
 
 <style scoped>
+.addEntry {
+    padding-bottom: 60px;
+}
 .add-form {
   margin-bottom: 40px;
 }

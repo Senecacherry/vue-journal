@@ -1,11 +1,27 @@
 <template>
   <div class="container">
-    <AddEntry @add-entry="addEntry" />
-
-    <h3>My Entries</h3>
-
+    <div v-if="showAddEntry">
+      <AddEntry @add-entry="addEntry" />
+    </div>
+    <div class="row">
+      <div class="entryHeader, col">
+        <h3>My Entries</h3>
+      </div>
+      <div class="col">
+        <Button
+          type="submit"
+          text="Add Entry"
+          color="green"
+          @click="showAddEntry = 'true'"
+        />
+      </div>
+    </div>
     <div :key="entry.id" v-for="entry in entries">
-      <JournalEntry @delete-entry="deleteEntry" @edit-entry="editEntry" :entry="entry" />
+      <JournalEntry
+        @delete-entry="deleteEntry"
+        @edit-entry="editEntry"
+        :entry="entry"
+      />
     </div>
   </div>
 </template>
@@ -13,32 +29,37 @@
 <script>
 import JournalEntry from "./JournalEntry.vue";
 import AddEntry from "./AddEntry.vue";
+import Button from "./Button.vue";
 
 export default {
   name: "EntryList",
   data: function () {
     return {
       entries: Array,
+      showAddEntry: false,
     };
   },
   components: {
-    JournalEntry, AddEntry
+    JournalEntry,
+    AddEntry,
+    Button,
   },
-  emits: ['delete-entry', 'edit-entry'],
+  emits: ["delete-entry", "edit-entry"],
   methods: {
     addEntry(entry) {
-        this.entries = [...this.entries, entry]
+      this.entries = [...this.entries, entry];
+      this.showAddEntry = false;
     },
     deleteEntry(id) {
-        if(confirm('Are you sure?')) {
+      if (confirm("Are you sure?")) {
         this.entries = this.entries.filter((entry) => entry.id !== id);
-        }
+      }
     },
     editEntry(entry) {
-        console.log('edit entry', id, editEntry);
-        this.entries = [...this.entries, entry]
-        // this.entries = this.entries.map((entry) => entry.id === id )
-    }
+      console.log("edit entry", id, editEntry);
+      this.entries = [...this.entries, entry];
+      // this.entries = this.entries.map((entry) => entry.id === id )
+    },
   },
   created() {
     this.entries = [
@@ -70,5 +91,11 @@ export default {
   border: 1px;
   padding: 15px;
   border-radius: 5px;
+}
+button {
+  float: right;
+}
+.entryHeader {
+  text-transform: uppercase;
 }
 </style>
