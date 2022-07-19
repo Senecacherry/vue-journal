@@ -16,6 +16,7 @@ import Counter from "./components/Counter.vue";
 
 <style>
 body {
+  background-image: url('./assets/cloud.svg');
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 </style>

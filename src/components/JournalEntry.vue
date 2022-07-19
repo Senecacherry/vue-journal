@@ -5,10 +5,9 @@
       <div class="card-body">Post: {{ entry.post }}</div>
       <div class="card-footer">
         <Button
-          @click="editEntry = !editEntry"
+          @edit-entry="editEntry"
           class="btn btn-sm"
           text="Edit"
-          type="submit"
           color="grey"
         />
         <Button
@@ -19,9 +18,9 @@
         />
       </div>
         <div v-if="editEntry">
-        <input name="title" v-model="title" />
-        <textarea v-model="updPost" name="updPost"></textarea>
-        <input type="submit" value="Save Entry" class="btn btn-success"/>
+        <input name="title" v-model="entry.title" />
+        <textarea v-model="updEntry" name="updEntry"></textarea>
+        <Button text="Update Entry" @update-entry="updateEntry"></Button>
       </div>
     </div>
   </div>
@@ -38,35 +37,41 @@ export default {
     return {
       updPost: "",
       title: "",
+      editEntry: false
     };
   },
   components: { Button },
-  emits: ["delete-entry", "edit-entry"],
+  emits: ["delete-entry", "edit-entry", "update-entry"],
   methods: {
-
+    toggleEditEntry() {
+        console.log('hit toggle');
+        this.editEntry = true;
+    },
     onDelete(id) {
       this.$emit("delete-entry", id);
     },
-    onSubmit(e) {
-      e.preventDefault();
+    editEntry(id) {
+        console.log('hit edit');
+    //   e.preventDefault();
 
       if (!this.title) {
         alert("Please add an entry!!");
         return;
       }
 
-      const updPost = {
-        id: Math.floor(Math.random() * 1000000),
+      const editPost = {
+        id: this.entry.id,
         title: this.title,
-        updPost: this.post,
+        editPost: this.post,
       };
 
-      console.log(updPost);
+      console.log(editPost);
 
       (this.title = ""), (this.post = "");
 
-      this.$emit("edit-entry", updPost);
+      this.$emit("create-entry", createPost);
     },
+    
   },
 };
 </script>

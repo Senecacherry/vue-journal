@@ -12,7 +12,7 @@ export default {
     },
     methods: {
        onClick() {
-        this.$emit('btn-click');
+         this.$emit("show-add-entry");
        }, 
     }
 }

@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div v-if="showAddEntry">
-      <AddEntry @add-entry="addEntry" />
+      <AddEntry @add-entry="addEntry" @show-add-entry="toggleShowAddEntry" />
     </div>
     <div class="row">
       <div class="entryHeader, col">
@@ -44,8 +44,11 @@ export default {
     AddEntry,
     Button,
   },
-  emits: ["delete-entry", "edit-entry"],
+  emits: ["delete-entry", "update-entry", "add-entry"],
   methods: {
+    toggleShowAddEntry() {
+      this.showAddEntry = false;
+    },
     addEntry(entry) {
       this.entries = [...this.entries, entry];
       this.showAddEntry = false;

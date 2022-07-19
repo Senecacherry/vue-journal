@@ -16,12 +16,16 @@
     </div>
 
     <input type="submit" value="Save Entry" class="btn btn-success" />
+    <!-- <Button text="Save" color="green" @add-entry="$emit('add-entry')"></Button> -->
+    <Button text="Cancel" color="grey" @show-add-entry="$emit('show-add-entry')"></Button>
   </form>  
   </div>
 </template>
 
 <script>
+import Button from './Button.vue';
 export default {
+  components: { Button },
     name: 'AddEntry',
     data() {
         return {
@@ -43,13 +47,13 @@ export default {
                 title: this.title,
                 post: this.post
             }
+            console.log('hit this')
 
             this.$emit('add-entry', newEntry)
 
-
             this.title = '',
             this.post = ''
-        }
+        },
     }
 }
 </script>
